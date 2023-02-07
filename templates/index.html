@@ -3,4 +3,21 @@
 
 {% block content %}
 
+<form action="/guess" method="POST">
+    <label id="guess-label" for="guess">Enter a guess:
+        <input type="text" name="guess" id="guess">
+    </label>
+    <button id="submit">Enter</button>
+</form>
+<table>
+    <tbody>
+            {% for row in game_board %}
+                <tr>
+                {% for td in row %}
+                    <td>{{td}}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
