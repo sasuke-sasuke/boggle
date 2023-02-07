@@ -8,3 +8,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECT'] = False
 debug = DebugToolbarExtension(app)
 
 boggle_game = Boggle()
+
+@app.route('/')
+def index():
+    return render_template('index.html')
