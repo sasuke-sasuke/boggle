@@ -2,14 +2,15 @@
 {% block title %}BOGGLE{% endblock %}
 
 {% block content %}
-
-<form action="/guess" method="POST">
-    <label id="guess-label" for="guess">Enter a guess:
-        <input type="text" name="guess" id="guess">
-    </label>
-    <button id="submit">Enter</button>
-</form>
-<table>
+<section>
+    <form action="" method="POST">
+        <label id="guess-label" for="guess">Enter a guess:
+            <input type="text" name="guess" id="guess">
+        </label>
+        <button id="submit">Enter</button>
+    </form>
+</section>
+<table id="game">
     <tbody>
             {% for row in game_board %}
                 <tr>
@@ -20,4 +21,14 @@
             {% endfor %}
     </tbody>
 </table>
+
+<section>
+    <p id="msg"></p>
+    <p id="score">Score: 0</p>
+    <p id="timer">Time Remaining: 60</p>
+    <p id="highscore">Highscore: {{highscore}}</p>
+    <p id="num-plays">Times played: {{plays}}</p>
+</section>
+
+
 {% endblock %}
