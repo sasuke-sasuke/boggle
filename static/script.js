@@ -1,6 +1,6 @@
 
 let score = 0;
-let time = 5;
+let time = 60;
 
 $('form').on('click', '#submit', handleClick);
 
@@ -12,9 +12,15 @@ async function handleClick(e){
     e.preventDefault();
     const $guess = $('#guess');
     const guess = $guess.val();
+    let response, msg;
     $guess.val('');
-    const response = await axios.get('/check_guess', {params: { guess: guess }})
-    const msg = response.data.result; 
+    try {
+        response = await axios.get('/check_guess', {params: { guess: guess }})
+        msg = response.data.result; 
+    } catch (error) {
+        msg = 'danger-guess'
+    }
+    
     msgUI(msg);
     scoreKeeper(guess, msg);
 }
@@ -36,7 +42,10 @@ function msgUI(msg){
     }
     else if (msg === 'single-char'){
         $msg.text('SIZE OF WORD MUST BE < 1')
+    } else {
+        $msg.text('WHATEVER YOU DID JUST STOP IT!')
     }
+
 }
 
 // Calculates points for correct guess and adds to score
@@ -65,7 +74,7 @@ function disableButton() {
     $('#submit').attr('disabled', 'true');
 };
 
-// Sends score data to server
+// Sends score data to server and updates UI with highscore and times played
 async function gameOver(){
     const res = await axios.post('/get_scores', {score : score});
     disableButton();
